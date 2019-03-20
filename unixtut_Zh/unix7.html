@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head> 
+<title> UNIX Tutorial Seven</title> 
+<link href="unixtut1.css" rel="stylesheet" type="text/css" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="Copyright" content="Michael Stonebank, 1995" />
+</head> 
+ 
+<body>
+<h1>UNIX 教程第七节 </h1>
+<h2>7.1 编译 UNIX 软件包 &nbsp; </h2>
+<p> 我们的系统上安装了许多公共域和商业软件包，可供所有用户使用。 但是，学生可以在自己的主目录中下载和安装小软件包，软件通常只对他们个人有用。 </p>
+<p> 安装软件需要执行许多步骤。</p>
+<ul>
+  <li> 找到并下载源代码（通常是压缩的）</li>
+  <li> 解压缩源代码</li>
+  <li> 编译代码 </li>
+  <li> 安装已生成的可执行文件</li>
+  <li> 设置安装目录的查询路径 </li>
+</ul>
+<p> 在上述步骤中，最困难的可能是编译阶段。</p>
+
+<h3>编译源代码</h3>
+<p> 必须将所有高级语言代码转换为计算机可以理解的形式。 例如，C 语言代码转换为称为汇编语言的低级语言代码。 然后将前一阶段生成的汇编语言代码转换为目标代码，该代码是计算机直接理解的代码片段。 编译程序的最后阶段涉及将目标代码链接到包含某些内置函数的代码库。 最后一个阶段产生一个可执行程序。</p>
+<p> 手动完成所有这些步骤是复杂的，并且超出了普通用户的能力。 已经为程序员和最终用户开发了许多实用程序和工具来简化这些步骤。</p>
+<h3> make 命令和 Makefile 文件</h3>
+<p> <samp>make</samp> 命令允许程序员管理大型程序或程序组。 它通过跟踪整个程序的哪些部分已被更改来帮助开发大型程序，仅编译自上次编译以来已更改的程序部分。 </p>
+<p> <samp>make</samp> 程序从名为 <strong>Makefile</strong> 的文本文件中获取其编译规则集，该文件与源文件位于同一目录中。 它包含有关如何编译软件的信息，例如优化级别，是否在可执行文件中包含调试信息。 它还包含有关在何处安装已完成编译的二进制文件（可执行文件），手册页，数据文件，依赖库文件，配置文件等的信息。</p>
+<p> 某些软件包要求您手动编辑 Makefile，以设置最终安装目录和任何其他参数。 但是，许多软件包现在都使用 GNU configure 实用程序来分发。</p>
+<h3>configure</h3>
+<p> 随着 UNIX 变体数量的增加，编写可以在所有变体上运行的程序变得更加困难。 开发人员经常无法访问每个系统，某些系统的特性因版本而异。 GNU配置和构建系统简化了作为源代码分发的程序的构建。 所有程序都使用简单，标准化的两步流程构建。 程序构建器无需安装任何特殊工具即可构建程序。 </p>
+<p> <samp>configure</samp> shell 脚本尝试猜测编译期间使用的各种系统相关变量的正确值。 它使用这些值在软件包的每个目录中创建 <strong>Makefile</strong> 。</p>
+<p> 编译包的最简单方法是：</p>
+
+  
+<ol>
+  <li> <samp>cd</samp> 到包含包源代码的目录。<br />
+  </li>
+  <li> 键入 <samp>./configure</samp> 以配置系统的程序包。<br />
+  </li>
+  <li> 输入 <samp>make</samp> 来编译包。<br />
+  </li>
+  <li> 可选）键入 <samp>make check</samp> 以运行包附带的任何自检。<br />
+  </li>
+  <li> 键入 <samp>make install</samp> 以安装程序以及任何数据文件和文档。<br />
+  </li>
+  <li> （可选）键入 <samp>make clean</samp> 以从源代码目录中删除程序二进制文件和目标文件。&nbsp; <br />
+  </li>
+</ol>
+<p> <samp>configure</samp> 实用程序支持各种选项。 您通常可以使用 <samp>--help</samp> 选项获取特定配置脚本的有趣选项列表。</p>
+  
+<p> 您可能使用的唯一通用选项是 <samp>--prefix </samp> 和 <samp> --exec-prefix </samp> 选项。 这些选项用于指定安装目录。 &nbsp; </p>
+<p> <samp> --prefix </samp> 选项指定的目录将包含与机器无关的文件，例如文档，数据和配置文件。 </p>
+<p> <samp> --exec-prefix </samp> 选项命名的目录（通常是 --prefix 目录的子目录）将保存机器相关文件，例如可执行文件。 </p>
+
+<h2>7.2 下载源代码 </h2>
+<p> 在本例中，我们将下载一个可在不同测量单位之间进行转换的免费软件。</p>
+<p> 首先创建一个下载目录&nbsp; </p>
+<p class="command"> % mkdir download </p>
+<p><a href="./Teaching/Unix/units-1.74.tar.gz">在此处下载软件</a>并将其保存到新的下载目录中。</p>
+<h2>7.3 提取源代码 &nbsp; </h2>
+<p> 进入 <strong>下载</strong> 目录并列出内容。&nbsp; 
+</p>
+<p class="command"> % cd download </p>
+<p class="command"> % ls -l </p>
+<p> 如您所见，文件名以tar.gz结尾。  <samp>tar</samp> 命令将多个文件和目录转换为一个 tar 文件。 然后使用 <samp>gzip</samp> 命令对其进行压缩（以创建 tar.gz 文件）。 </p>
+<p> 首先使用 <samp>gunzip</samp> 命令解压缩文件。 这将创建一个.tar文件。&nbsp; </p>
+<p class="command"> % gunzip units-1.74.tar.gz </p>
+<p> 然后提取tar文件的内容。&nbsp; </p>
+<p class="command">% tar -xvf units-1.74.tar </p>
+<p> 再次列出<strong>下载</strong>目录的内容，然后转到 <strong>units-1.74</strong> 子目录。&nbsp; </p>
+<p class="command">% cd units-1.74 </p>
+<h2>7.4 配置和创建 Makefile &nbsp; </h2>
+<p> 首先要仔细阅读 <strong>README</strong> 和 <strong>INSTALL</strong> 文本文件（使用 <samp>less</samp> 命令）。 这些包含有关如何编译和运行软件的重要信息。</p>
+<p> units包使用GNU配置系统来编译源代码。 我们需要指定安装目录，因为默认将是您没有写入权限的主系统区域。 我们需要在您的主目录中创建一个安装目录。 &nbsp; </p>
+<p class="command">% mkdir ~/units174</p>
+<p> 然后运行configure 实用程序将安装路径设置为此路径。 &nbsp; 
+</p>
+<p class="command">% ./configure --prefix=$HOME/units174</p>
+<p class="hint">注意： <br />
+  <br />
+   <strong>$HOME</strong> 变量是环境变量的实例。 
+  <br />
+   <strong>$HOME</strong> 的值是主目录的路径。 只需输入 <code><br />
+  <br />
+  % echo $HOME</code> <br />
+  <br />
+  显示此变量的内容。 我们将在后面的章节中学习更多关于环境变量的知识。</p>
+<p>如果 configure 已正确运行，它将创建一个包含所有必要选项的 Makefile。 您可以根据需要查看 Makefile（使用 <samp>less</samp> 命令），但不要编辑它的内容。 </p>
+<h2>7.5 构建包&nbsp; </h2>
+<p>现在，您可以通过运行 <samp>make</samp> 命令继续构建程序包。&nbsp; </p>
+<p class="command">% make</p>
+<p>一两分钟后（取决于计算机的速度），将创建可执行文件。 您可以通过键入检查以查看成功编译的所有内容。</p>
+<p class="command">% make check</p>
+<p> 如果一切正常，您现在可以安装该软件包。 &nbsp; </p>
+<p class="command">% make install</p>
+<p> 这会将文件安装到您之前创建的 <strong>~/units174</strong> 目录中。</p>
+<h2>7.6 运行软件</h2>
+<p> 您现在已准备好运行该软件（假设一切正常）。&nbsp; </p>
+<p class="command">% cd ~/units174</p>
+<p> 如果列出units目录的内容，您将看到许多子目录。</p>
+<table border="1" align="center" cellpadding="3" cellspacing="0">
+  <tr> 
+    <td>bin</td>
+	<td>The binary executables</td>
+    <td>二进制可执行文件</td>
+  </tr>
+  <tr> 
+    <td>info</td>
+	<td>GNU info formatted documentation</td>
+    <td>GNU信息格式的文档</td>
+  </tr>
+  <tr> 
+    <td>man</td>
+	<td>Man pages</td>
+    <td>手册页</td>
+  </tr>
+  <tr> 
+    <td>share</td>
+	<td>Shared data files</td>
+    <td>共享数据文件</td>
+  </tr>
+</table>
+<p> 要运行该程序，请切换到 <strong>bin</strong> 目录并键入&nbsp; 
+</p>
+<p class="command">% ./units </p>
+<p> 例如，将6英尺转换为米。&nbsp; </p>
+<p class="command">You have: 6 feet</p>
+<p class="command">You want: metres&nbsp; </p>
+<p class="stdout">* 1.8288 </p>
+<p> 如果你得到答案 1.8288，恭喜，它有效。</p>
+<p> 要查看它可以在哪些单位之间进行转换，请查看共享目录中的数据文件（该列表非常全面）。</p>
+<p> 要阅读完整文档，请转到 <strong>info</strong> 目录并键入&nbsp; </p>
+<p class="command">% info --file=units.info</p>
+<h2>7.7 剥离不必要的代码</h2>
+<p> 在开发一个软件时，程序员将调试信息包含在生成的可执行文件中是很有用的。 这样，如果在运行可执行文件时遇到问题，程序员可以将可执行文件加载到调试软件包中并跟踪任何软件错误。</p>
+<p> 这对程序员很有用，但对用户来说是不必要的。 我们可以假设一旦完成并可供下载的软件包已经过测试和调试。 但是，当我们编译上面的软件时，调试信息仍然被编译到最终的可执行文件。 由于我们不太需要这些调试信息，因此我们可以将其从最终的可执行文件中删除。 这样做的一个优点是可执行程序要小得多，运行速度要快一些。</p>
+<p> 我们要做的是查看二进制文件的前后大小。 首先切换到 units 安装目录的 <strong>bin</strong> 目录。&nbsp; </p>
+<p class="command">% cd ~/units174/bin</p>
+<p class="command">% ls -l </p>
+<p> 如您所见，该文件的大小超过 100 千字节。 您可以使用 <samp>file</samp> 命令获取有关文件类型的更多信息。&nbsp; </p>
+<p class="command">% file units</p>
+<p class="stdout">units: ELF 32-bit LSB executable, Intel 80386, version 1, dynamically 
+  linked (uses shared libs), not stripped</p>
+<p> 要从二进制文件中删除所有调试和行编号信息，请使用 <samp>strip</samp> 命令&nbsp; </p>
+<p class="command">% strip units</p>
+<p class="command">% ls -l </p>
+<p> 如您所见，该文件现在为36千字节 - 是其原始大小的三分之一。 三分之二的二进制文件是调试代码！！！</p>
+<p> 再次检查文件信息。&nbsp; </p>
+<p class="command">% file units</p>
+<p class="stdout">units: ELF 32-bit LSB executable, Intel 80386, version 1, dynamically 
+  linked (uses shared libs), stripped</p>
+<p class="hint"> 提示：安装软件包时，可以使用make命令安装所有二进制文件的预剥离副本。 <br />
+  <br />
+  只需输入 <samp> make install-strip</samp>，而不是输入 <samp> make install</samp>。</p>
+<p>&nbsp;</p>
+
+<p class="navbar"><a href="unix6.html"><img src="media/left.gif" alt="Previous" width="37" height="39" border="0" /></a> 
+  <a href="index.html"><img src="media/home.gif" alt="Home" width="81" height="39" border="0" /></a><a href="unix8.html"><img src="media/right.gif" alt="Next" width="37" height="39" border="0" /></a> 
+</p>
+
+<p class="date"> M.Stonebank@surrey.ac.uk, &copy; October 2001 </p>
+
+<p> </p>
+</body>
+</html>

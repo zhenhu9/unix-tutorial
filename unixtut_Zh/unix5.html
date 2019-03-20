@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head> 
+<title> UNIX Tutorial Five</title> 
+<link href="unixtut1.css" rel="stylesheet" type="text/css" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="Copyright" content="Michael Stonebank, 1995" />
+</head> 
+ 
+<body>
+<h1>UNIX 教程第五节 </h1>
+<h2>5.1 文件系统安全（访问权限） </h2>
+<p> 在你的 unixstuff 目录，输入 </p>
+
+<p class="command"> % ls -l （l 选项列出长列表!）</p>
+<p> 您将看到您现在获得了有关目录内容的大量详细信息，类似于下面的示例。 </p>
+<p> <img src="file1.gif" alt="File and directory access rights" /> </p>
+<p>每个文件（和目录）都具有关联的访问权限，可以通过键入 <samp>ls -l</samp> 找到。 此外， <samp>ls -lg</samp> 提供有关哪个组拥有该文件的额外信息（下面的示例中为 beng95）： </p>
+<p class="stdout"> -rwxrw-r-- 1 ee51ab beng95 
+  2450 Sept29 11:52 file1</p>
+<p>在左侧列中是一个10位符号字符串，由符号 d， r， w， x， - 组成，偶尔还有 s 或 S。如果存在 d，它将位于字符串的最左端，表示这是一个目录，否则 - 将是字符串的起始符号。 </p>
+<p>其余9个符号表示权限或访问权限，并被视为三组，每组3个符号。 </p>
+<ul>
+  <li> 左侧组的3个符号给出该文件（或目录）所属用户对其所拥有的文件权限（上例中为ee51ab）;  <br />
+  </li>
+  <li> 中间组给出该文件（或目录）所属群组对其所拥有的文件权限（上例中为eebeng95）;<br />
+  </li>
+  <li> 最右边的组给出所有其它人的文件权限。</li>
+</ul>
+
+<p>符号 r， w 等具有略微不同的含义，这取决于它们是指简单文件还是指向目录。 </p>
+<h3>文件的访问权限</h3>
+<ul>
+  <li> r（或 - ）表示有读取权限（或相反），即具有或者无阅读和复制文件的权限。 <br />
+  </li>
+  <li> w（或 - ）表示有写入权限（或相反），即具有（或者无）更改文件的权限。 <br />
+  </li>
+  <li> x（或 - ）表示有执行权限（或相反），即具有（适当处）执行文件的权限。 </li>
+</ul>
+<h3>目录的访问权限</h3>
+<ul>
+  <li> r 允许用户列出目录中的文件; </li>
+  <li> w 表示用户可以从目录中删除文件或将文件移入其中; </li>
+  <li> x 表示访问目录中文件的权限。 这表明您可以读取目录中您具有读取权限的个人文件。 </li>
+</ul>
+<p>因此，为了读取文件，您必须具有包含该文件的目录的可执行权限，因此您也必须具有此目录的父目录的可执行权限，依此类推，一直到顶。 </p>
+<h3>一些例子</h3>
+
+<table border="1" align="center" cellpadding="5" cellspacing="0">
+  <tr>
+    <td><samp>-rwxrwxrwx</samp></td>
+    <td>每个人都可以读取，写入和执行（和删除）的文件。</td>
+  </tr>
+  <tr>
+    <td><samp>-rw-------</samp></td>
+    <td>只有所有者可以读写的文件 - 其他人没有读取或写入<br />权限，所有人都不具有执行权限（例如您的邮箱文件）。</td>
+  </tr>
+</table>
+
+
+<h2>5.2 更改访问权限</h2>
+<h3>chmod （changing a file mode）</h3>
+<p>只有文件的所有者才能使用 <samp>chmod</samp> 来更改文件的权限。  <samp>chmod</samp> 的选项如下 </p>
+<table border="1" align="center" cellpadding="3" cellspacing="0">
+  <tr> 
+    <th>Symbol</th>
+    <th>Meaning</th>
+	<th>含义</th>
+  </tr>
+  <tr> 
+    <td><div align="center">u</div></td>
+    <td>user</td>
+	<td>用户或属主</td>
+  </tr>
+  <tr> 
+    <td><div align="center">g</div></td>
+    <td>group</td>
+	<td>群组或属组</td>
+  </tr>
+  <tr> 
+    <td><div align="center">o</div></td>
+    <td>other</td>
+	<td>其他人</td>
+  </tr>
+  <tr> 
+    <td><div align="center">a</div></td>
+    <td>all</td>
+	<td>所有人</td>
+  </tr>
+  <tr> 
+    <td><div align="center">r</div></td>
+    <td>read</td>
+	<td>可读</td>
+  </tr>
+  <tr> 
+    <td><div align="center">w</div></td>
+    <td>write (and delete)</td>
+	<td>可写（和可删除）</td>
+  </tr>
+  <tr> 
+    <td><div align="center">x</div></td>
+    <td>execute (and access directory) </td>
+	<td>可执行 （和目录可访问）</td>
+  </tr>
+  <tr> 
+    <td><div align="center">+</div></td>
+    <td>add permission</td>
+	<td>添加权限</td>
+  </tr>
+  <tr> 
+    <td><div align="center">-</div></td>
+    <td>take away permission</td>
+	<td>删除权限</td>
+  </tr>
+</table>
+<p> 例如，要删除组和其他人在文件 <strong>biglist</strong> 上的读写和执行权限，请输入 </p>
+
+<p class="command"> % chmod go-rwx biglist </p>
+<p> 这将使其他权限不受影响。 </p>
+
+<p> 为所有人提供文件 <strong>biglist</strong> 的读写权限， </p>
+<p class="command"> % chmod a+rw biglist </p>
+<h3>练习 5a</h3>
+<p> 尝试更改文件science.txt和目录 <strong>backups</strong>的访问权限。</p>
+<p> 使用 <samp>ls -l</samp> 检查权限是否已更改。 </p>
+
+<h2>5.3 进程和作业  </h2>
+<p> 进程是由唯一 PID（进程标识符）标识的正在执行的程序。 要查看进程状态和其相关 PID 的信息，请输入 </p>
+
+<p class="command"> % ps </p>
+<p> 进程可以在前台，后台或被挂起。 通常，在当前进程执行完毕之前，shell 不会返回 UNIX 提示符。 </p>
+<p> 某些进程需要运行很长时间并占用终端。 对长进程进行后台处理会导致立即返回 UNIX 提示符，并且可以在原进程继续执行时执行其他作业。
+</p>
+<h3>在后台运行进程</h3>
+<p> 要后台运行进程，请在命令行末尾输入 <strong>&amp;</strong> 。 例如，在继续之前，命令 <samp>sleep</samp> 等待给定的秒数。 请输入 </p>
+<p class="command"> % sleep 10 </p>
+<p> 在返回命令提示符 % 之前，将等待 10 秒。 在返回命令提示符之前，除等待之外什么都做不了。</p>
+<p> 要在后台运行 <samp>sleep</samp> ，请键入 </p>
+<p class="command"> % sleep 10 &amp;</p>
+<p class="stdout">[1] 6259 </p>
+<p> <strong>&amp;</strong> 在后台运行作业并立即返回提示，允许您在等待该程序完成时运行其他程序。 </p>
+<p>＆在后台运行作业并立即返回提示，允许您在等待该程序结束时运行其他程序。上例中的第一行是用户输入的；机器返回下一行，表示作业号和 PID。 向用户通知方括号中的作业编号（编号为 1）以及 PID，并在后台运行结束时通知用户。 后台对于需要很长时间才能完成的作业非常有用。 </p>
+<h3>后台处理当前前台进程</h3>
+<p> 在提示符输入 </p>
+<p class="command"> % sleep 100 </p>
+<p> 您可以通过按住 <code>[control]</code> 键并输入 <code>[Z]</code>（书写为 <strong>^Z</strong>），来挂起在前台运行的进程，然后将其放在后台，请输入 </p>
+<p class="command"> % bg </p>
+<p class="hint"> 注意：请勿后台处理需要用户交互的程序，例如： pine </p>
+
+<h2>5.4 列出被挂起的与后台处理的进程 </h2>
+<p> 当进程正在运行，后台处理或被挂起时，它将与作业号一起输入到作业列表中。 要查看此列表，请输入 </p>
+<p class="command"> % jobs </p>
+<p> 作业列表的示例可能如下 </p>
+<p class="stdout"> [1] Suspended sleep 100<br />
+  [2] Running netscape<br />
+  [3] Running nedit
+</p>
+<p> 要重新启动（前台）挂起的进程，请输入 </p>
+<p class="command"> % fg %jobnumber </p>
+<p> 例如，要重新启动 <samp>sleep 100</samp>，请输入 </p>
+<p class="command"> % fg %1 </p>
+<p> 输入没有作业号的 <samp>fg</samp> 会前台处理最后挂起的进程。
+</p>
+  <p> </p>
+<h2>5.5 终止进程 </h2>
+<h3> kill（终止或发出信号）</h3>
+<p> 有时需要终止进程（例如，当执行程序处于无限循环时）。 </p>
+<p> 要终止在前台运行的作业，请键入 <samp>^C</samp> （control c）。 </p>
+<p class="command">% sleep 100<br />
+  ^C </p>
+<p> 要终止挂起的或后台的进程，请键入 </p>
+<p class="command"> % kill %jobnumber </p>
+<p> 例如，运行 </p>
+<p class="command">% sleep 100 &amp;<br />
+  % jobs</p>
+<p> 如果作业号为4，键入 </p>
+<p class="command"> % kill %4 </p>
+<p> 要检查这是否有效，请再次检查作业列表以查看是否已删除该进程。 </p>
+<h3>ps （process status）</h3>
+<p> 或者，可以通过查找进程号（PID）和使用 <samp>kill <var>PID_number</var></samp> 来终止进程。</p>
+<p class="command"> % sleep 100 &amp;<br />
+  % ps</p>
+<p class="stdout">PID TT S TIME COMMAND<br />
+  20077 pts/5 S 0:05 sleep 100<br />
+  21563 pts/5 T 0:00 netscape<br />
+  21873 pts/5 S 0:25 nedit </p>
+<p> 要终止进程 <samp>sleep 100</samp>， 请键入 </p>
+<p class="command"> % kill 20077 </p>
+<p> 然后再次键入 <samp>ps</samp> 以查看它是否已从列表中删除。 </p>
+<p> 如果进程拒绝被终止，则使用 <strong>-9</strong> 选项，即键入 </p>
+<p class="command"> % kill -9 20077 </p>
+<p class="hint"> 注意：其它用户的进程不可能被终止！！！</p>
+<h2>小结 </h2>
+<table border="1" align="center" cellpadding="3" cellspacing="0">
+  <tr> 
+    <td><code>ls -lag</code></td>
+    <td> 列出所有文件的访问权限</td>
+  </tr>
+  <tr> 
+    <td><code>chmod [<var>options</var>] <var>file</var></code></td>
+    <td> 更改指定文件的访问权限</td>
+  </tr>
+  <tr> 
+    <td><code><var>command</var> &amp;</code></td>
+    <td> 在后台运行命令</td>
+  </tr>
+  <tr> 
+    <td><code>^C</code></td>
+    <td> 终止前台运行的作业</td>
+  </tr>
+  <tr> 
+    <td><code>^Z</code></td>
+    <td> 挂起前台运行的作业</td>
+  </tr>
+  <tr> 
+    <td><code>bg</code></td>
+    <td> 后台处理挂起的进程</td>
+  </tr>
+  <tr> 
+    <td><code>jobs</code></td>
+    <td> 显示当前作业列表</td>
+  </tr>
+  <tr> 
+    <td><code>fg %1</code></td>
+    <td> 前台处理作业 1</td>
+  </tr>
+  <tr> 
+    <td><code>kill %1</code></td>
+    <td> 终止作业 1</td>
+  </tr>
+  <tr> 
+    <td><code>ps</code></td>
+    <td> 显示当前进程列表</td>
+  </tr>
+  <tr> 
+    <td><code>kill 26152</code></td>
+    <td> 终止进程号为 26152 的进程</td>
+  </tr>
+</table>
+  
+
+<p>&nbsp;</p><p class="navbar"><a href="unix4.html"><img src="media/left.gif" alt="Previous" width="37" height="39" border="0" /></a> 
+  <a href="index.html"><img src="media/home.gif" alt="Home" width="81" height="39" border="0" /></a><a href="unix6.html"><img src="media/right.gif" alt="Next" width="37" height="39" border="0" /></a> 
+</p>
+
+<p class="date"> M.Stonebank@surrey.ac.uk, 9th October 2000 </p>
+
+</body>
+</html>
