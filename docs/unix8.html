@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>UNIX Tutorial Eight</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="Copyright" content="Michael Stonebank, 1995" />
+<link href="unixtut1.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<h1>UNIX 教程第八节 </h1>
+<h2>8.1 UNIX 变量</h2>
+<p> 变量是一种在运行时将信息从 shell 传递给程序的方法。程序“在环境中”寻找特定变量，如果找到，会使用它们存储的值。 有些是由系统设置的，有些是由您设置的，有些是由 shell 设置的，或者是任何加载其他程序的程序设置的。 
+</p>
+<p> 标准 UNIX 变量分为两类，环境变量和 shell 变量。 从广义上讲，shell 变量仅适用于 shell 的当前实例，用于设置短期工作条件; 环境变量具有更深远的意义，登录时设置那些的变量在会话期间有效。 按照惯例，环境变量具有大些名称，而 shell 变量具有小写名称。 </p>
+
+<h2>8.2 环境变量</h2>
+<p> 环境变量的一个示例是 OSTYPE 变量。 此值是您正在使用的当前操作系统。请输入 </p>
+<p class="command">% echo $OSTYPE </p>
+<p> 更多环境变量的例子 </p>
+<ul>
+  <li> USER （您的登录名）</li>
+  <li> HOME （主目录的路径名）</li>
+  <li> HOST （您正在使用的计算机的名称）</li>
+  <li> ARCH （计算机处理器的架构）</li>
+  <li> DISPLAY （显示 X windows 的计算机屏幕名称）</li>
+  <li> PRINTER （默认被发送打印作业的打印机）</li>
+  <li> PATH （shell 查找命令应搜索的目录）</li>
+</ul>
+<h3> 找出这些变量的当前值。</h3>
+
+<p> 使用 <samp>setenv</samp> 命令设置环境变量，使用 <samp>printenv</samp> 或 <samp>env</samp> 命令显示，使用 <samp>unsetenv</samp> 命令取消设置。
+</p>
+<p> 要显示这些变量的所有值，请键入</p>
+<p class="command">% printenv | less</p>
+<h2>8.3 Shell 变量</h2>
+<p> shell 变量的一个示例是 history 变量。 这个值是要保存的 shell 命令的数量，允许用户回滚它们先前输入的所有命令。 键入</p>
+<p class="command">% echo $history</p>
+<p> 更多 shell 变量的示例 </p>
+<ul>
+  <li>cwd （您当前的工作目录）
+  </li>
+  <li> home （主目录的路径名）
+  </li>
+  <li> path （shell 查找命令应搜索的目录）
+  </li>
+  <li> prompt （登陆 shell 用于交互式命令 shell 而使用的文本字符串提示）
+  </li>
+</ul>
+
+<h3>找出这些变量的当前值。</h3>
+
+<p> 使用 <samp>set</samp> 命令设置和显示 SHELL 变量。 可以使用 <samp>unset</samp> 命令取消设置它们。 </p>
+<p> 要显示这些变量的所有值，请键入</p>
+<p class="command">% set | less</p>
+
+<h3> 那么PATH和path有什么区别？</h3>
+<p> 通常，具有相同名称（除了大小写）的环境和 shell 变量是不同且独立的，除了可能具有相同的初始值。 但是，有例外。 </p>
+<p>  </p>
+<p> 每次更改 shell 变量 home，user 和 term 时，相应的环境变量 HOME，USER 和 TERM 都会收到相同的值。 但是，更改环境变量对相应的 shell 变量没有影响。 </p>
+<h2>8.4 使用和设置变量 </h2>
+<p> 每次登录 UNIX 主机时，系统都会在主目录中查找初始化文件。 这些文件中的信息用于设置您的工作环境。 C 和 TC shell 使用两个名为 .login 和 .cshrc 的文件（请注意，两个文件名都以点开头）。</p>
+<p> 在登录时，C shell首先读取 <strong>.cshrc</strong> ，然后读取 <strong>.login</strong>。</p>
+<p> <strong>.login</strong> 用于设置将应用于整个会话和仅在登录时执行的相关操作的环境。 </p>
+<p> <strong>.cshrc</strong> 用于设置环境并执行特定于 shell 及其每次调用的操作。</p>
+<p> 操作准则是在 <strong>.login</strong> 文件中设置环境变量，在 <strong>.cshrc</strong> 文件中设置 SHELL 变量。 </p>
+<p class="warning"><strong>警告：</strong> 切勿在 .cshrc 或 .login 文件中放置运行图形显示的命令（例如 Web 浏览器）。 </p>
+<h2>8.5 在 .cshrc 文件中设置 shell 变量</h2>
+<p> 例如，要更改历史列表中保存的 shell 命令的数量，需要设置 shell 变量 history。 默认设置为 100，但如果您愿意，可以增加此值。</p>
+<p class="command">% set history = 200</p>
+<p> 检查这是否有效，通过输入以下</p>
+<p class="command">% echo $history</p>
+<p> 但是，这只设置了当前 shell 生命周期的变量。 如果您打开一个新的 xterm 窗口，它将只设置默认历史记录值。 要永久设置历史记录的值，您需要将 set 命令添加到 .cshrc 文件中。</p>
+<p> 首先在文本编辑器中打开 <strong>.cshrc</strong> 文件。 一个易于使用，用户友好的编辑器是 nedit。</p>
+<p class="command">% nedit ~/.cshrc</p>
+<p> 在其他命令列表之后添加以下行。</p>
+<p class="sourcecode"> set history = 200</p>
+<p> 保存文件并强制 shell 使用 shell source 命令重新读取其 .cshrc 文件。</p>
+<p class="command">% source .cshrc</p>
+<p> 检查这是否有效，通过输入以下</p>
+<p class="command">% echo $history</p>
+
+<h2>8.6 设置路径</h2>
+<p>输入命令时，path（或 PATH）变量定义 shell 在哪些目录中查找您键入的命令。 如果系统返回一条消息“command：Command not found”，则表示该命令在系统上根本不存在，或者根本不在您的路径中。. 
+</p>
+<p>例如，要运行 units，您需要直接指定 units 路径（<strong>~/units174/bin/units</strong>），或者您需要在路径中包含目录 <strong>~/units174/bin</strong> 。  
+</p>
+<p> 您可以通过发出命令将其添加到现有路径的末尾（<strong>$path</strong> 表示这个）：
+</p>
+<p class="command"> % set path = ($path ~/units174/bin)</p>
+<p> 通过尝试在 units 实际所在目录之外的任何目录中运行 units，来测试这是否有效。</p>
+<p class="command">% cd; units</p>
+<p class="hint"><strong>提示：</strong> 您可以在一行上运行多个命令，方法是用分号分隔它们。 </p>
+<p> 要永久添加此路径，请在 .cshrc 中的其它命令列表之后添加以下行。</p>
+<p class="sourcecode">set path = ($path ~/units174/bin)</p>
+
+<p class="navbar"><a href="unix7.html"><img src="media/left.gif" alt="Back" width="37" height="39" border="0" /></a> 
+  <a href="index.html"><img src="media/home.gif" alt="Home" width="81" height="39" border="0" /></a> 
+</p>
+
+<p class="date">M.Stonebank@surrey.ac.uk October 2001 </p>
+<p> </p>
+</body>
+</html>

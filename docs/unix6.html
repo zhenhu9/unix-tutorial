@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head> 
+<title> UNIX Tutorial Six</title> 
+<link href="unixtut1.css" rel="stylesheet" type="text/css" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="Copyright" content="Michael Stonebank, 1995" />
+</head> 
+ 
+<body>
+<h1>UNIX 教程第六节 </h1>
+<h2>其它有用的 UNIX 命令</h2>
+<h3>quota</h3>
+<p> 所有学生都在文件系统上为他们的个人文件分配了一定数量的磁盘空间，通常大约100Mb。 如果您超过配额，则会有7天时间删除多余的文件。
+</p>
+<p> 要检查您当前的配额以及您使用了多少配额，请键入 </p>
+
+<p class="command"> % quota -v </p>
+
+<h3>df</h3>
+<p> df 命令报告文件系统上剩余的空间。 例如，要了解文件服务器上剩余的空间，请输入 </p>
+
+<p class="command"> % df . </p>
+
+<h3>du</h3>
+<p> du 命令输出每个子目录使用的千字节数。 如果您已超过配额，并且想要找出哪个目录包含的文件最大，则非常有用。 在您的主目录中，输入 </p>
+
+<p class="command"> % du </p>
+
+<h3>compress</h3>
+<p> 此命令减小了文件的大小，从而释放了宝贵的磁盘空间。 例如，输入 </p>
+
+<p class="command"> % ls -l science.txt </p>
+<p> 并记下文件的大小。 然后压缩 science.txt，输入 </p>
+
+<p class="command"> % compress science.txt </p>
+<p> 这将压缩文件并将其放在名为 science.txt.Z 的文件中。 </p>
+<p> 要查看大小的变化，请再次输入 ls -l。 </p>
+<p> 要解压缩文件，请使用 uncompress 命令。 </p>
+
+<p class="command"> % uncompress science.txt.Z </p>
+
+<h3>gzip</h3>
+<p> 此命令也压缩文件，并且比 compress 更有效。 例如，要压缩 science.txt，请键入 </p>
+
+<p class="command"> % gzip science.txt </p>
+<p> 这将压缩文件并将其放在名为 science.txt.gz 的文件中 </p>
+<p> 要解压缩文件，请使用 gunzip 命令。 </p>
+
+<p class="command"> % gunzip science.txt.gz </p>
+
+<h3>file</h3>
+<p> file 根据它们包含的数据类型对命名文件进行分类，例如 ascii（文本），图片，压缩数据等。要报告主目录中的所有文件，请键入 </p>
+
+<p class="command"> % file * </p>
+
+<h3>history</h3>
+<p> C shell 保留了您输入的所有命令的有序列表。 每个命令根据输入的顺序给出一个数字。</p>
+
+<p class="command"> % history (show command history list)</p>
+<p> 如果您使用的是C shell，则可以使用感叹号（！）轻松再调用命令。</p>
+
+<p class="command">% !! （回调最后一个命令）</p>
+<p class="command">% !-3 （回调起最近的第三个命令） </p>
+<p class="command">% !5 （回调历史记录的第三个命令） </p>
+<p class="command">% !grep （回调最近的以 grep 起始的命令） </p>
+<p> 您可以改变历史记录缓存的大小，输入 </p>
+
+<p class="command">% set history=100 </p>
+    <p> </p>
+<p class="navbar"><a href="unix5.html"><img src="media/left.gif" alt="Previous" width="37" height="39" border="0" /></a> 
+  <a href="index.html"><img src="media/home.gif" alt="Home" width="81" height="39" border="0" /></a> 
+  <a href="unix7.html"><img src="media/right.gif" alt="Next" width="37" height="39" border="0" /></a> 
+</p>
+
+<p class="date"> M.Stonebank@surrey.ac.uk, &copy; 24th August 2001 </p>
+
+
+</body>
+</html>

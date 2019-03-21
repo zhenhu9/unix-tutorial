@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title> UNIX Tutorial - Introduction</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="Copyright" content="Michael Stonebank, 1995" />
+<link href="unixtut1.css" rel="stylesheet" type="text/css" />
+</head>
+
+
+<body>
+<div>
+  <h1> UNIX 简介 </h1>
+</div>
+<p>此会话涉及 UNIX，这是一种常见的操作系统，对于操作系统 ，我们指的是使计算机工作的程序套件。UNIX 是学校里的多用户服务器，并通过工作站来使用。</p>
+<p> 在 X 终端和工作站上，X Windows 在用户和 UNIX 之间提供了一个图形接口。但是，对于图形程序未涵盖的操作，或者没有 X windows 系统（例如，在telnet会话中），就需要 UNIX 的知识。</p>
+  
+<h2> UNIX 操作系统 </h2>
+<p> UNIX 操作系统由三个部分组成； 内核，shell 和程序。 </p>
+<h3> 内核 </h3>
+<p> 内核是操作系统的中心： 它为程序分配时间和内存，并处理文件存储和通信以响应系统调用。 </p>
+<p> 作为 shell 和内核协同工作方式的说明，假设用户键入 <samp>rm myfile</samp>（具有删除文件 <storng>myfile</storng>  的效果）。 shell 在文件存储中搜索包含程序 <samp>rm</samp> 的文件，然后通过系统调用请求内核在 <strong>myfile</strong> 上执行程序 <samp>rm</samp>。 当进程 <samp>rm myfile</samp> 运行完毕后，shell 会将 UNIX 提示符 % 返回给用户，表明它正在等待进一步的命令。 </p>
+<h3> SHELL </h3>
+<p> shell 充当用户与内核之间的接口。当用户登录时，登录程序会检测用户名和密码，然后启动另一个名为 shell 的程序。  shell 是一个命令行解释器（CLI）. 它解释用户输入的命令并安排执行它们。命令本身就是程序：当他们终止时，shell 返回提示符（在我们系统上是 % ）给用户。</p>
+<p> 熟练的用户可以自定义他/她自己的 shell，用户可以在同一台机器上使用不同的 shell，学校的工作人员和学生使用默认的 tcsh。 </p>
+<p> tcsh shell 具有某些功能，可以帮助用户输入命令。</p>
+<p> 文件名补全 - 通过输入部分命令名，文件名或目录名，然后按 [Tab] 键，tcsh shell 将自动补全名称的其余部分。如果 shell 找到不止一个以你输入的字母开头的名称，他将发出哔声，提示你再次输入 [Tab] 键之前，输入更多的字母。 </p>
+<p> 历史纪录 - shell 保留了你输入的命令列表。如果你需要重复一个命令，请使用方向键来上下滚列表，或者输入 history 以获取以往命令的列表。 </p>
+    
+<p> </p>
+<h2> 文件和进程 </h2>
+<p> 在 UNIX 中任何东西要么是个文件，要么是个进程。 </p>
+<p> 进程是个由唯一 PID （进程标识符） 标示的执行程序. 
+</p>
+<p> 文件是数据集合。它们由用户通过文本编辑器创建，运行编译器等等。 </p>
+<p> 文件的示例 </p>
+<ul>
+  <li> 文档 （报告，论文等等。） </li>
+  <li> 用某种高级编程语言编写的程序文本 </li>
+  <li> 机器可理解的，而普通用户无法理解的指令，例如：二进制数字集合（可执行文件或二进制文件）； </li>
+  <li> 目录，包含有关其内容的信息，可能是其它目录（子目录）和普通文件的混合。 </li>
+</ul>
+  
+<p> </p>
+<h2> 目录结构 </h2>
+<p>所有文件都在目录结构中组合在一起。 文件系统以层次结构排列，如倒置树。 层次结构的顶部传统上称为 <strong>root</strong>。 </p>
+<p align="center"> <img src="tree.gif" alt="The Unix file structure" width="397" height="224" /> 
+</p>
+<p> 在上图中，我们看到目录 ee51ab 包含子目录 unixstuff 和文件 proj.txt</p>
+  
+<h2> 开启 Xterminal 会话 </h2>
+<p> 要启动 Xterm 会话，点击你桌面上的或下拉菜单的 Unix 终端图标。</p>
+<p align="center"> <img src="unixterminal.jpg" alt="The  Unix Terminal icon" /> 
+</p>
+<p>&nbsp;</p>
+<p> 将出现带有 Unix 提示符的 Xterminal 窗口，等待输入命令。</p>
+<p align="center"><img src="gterm.gif" alt="An X terminal window at the Unix prompt" width="479" height="316" /></p>
+<p>&nbsp;</p>
+<p class="navbar"><a href="unix0.html"><img src="media/left.gif" alt="Previous" width="37" height="39" border="0" /></a> 
+  <a href="index.html"><img src="media/home.gif" alt="Home" width="81" height="39" border="0" /></a><a href="unix1.html"><img src="media/right.gif" alt="Next" width="37" height="39" border="0" /></a> 
+</p>
+
+  
+<p class="date">M.Stonebank@surrey.ac.uk, &copy; 9th October 2000 
+</p>
+</body>
+</html>

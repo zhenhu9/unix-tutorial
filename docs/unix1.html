@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head> 
+<title> UNIX Tutorial One</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="Copyright" content="Michael Stonebank, 1995" />
+<link href="unixtut1.css" rel="stylesheet" type="text/css" />
+</head> 
+ 
+<body>
+<h1> UNIX 教程一 </h1>
+
+<h2>1.1 列出文件和目录 </h2>
+<h3>ls （list）</h3>
+<p> 首次登录时，您当前的工作目录是您的主目录。 您的主目录与您的用户名同名，例如：ee91ab，它是您保存个人文件和子目录的位置。 </p>
+<p> 要找出主目录中的内容，请键入 </p>
+<p class="command">% ls （list 缩写）</p>
+<p> <samp>ls</samp> 命令列出当前工作目录的内容。
+</p>
+<p> 您的主目录中可能没有可见的文件，在这种情况下，将返回 UNIX 提示符。 另外，在创建帐户时，系统管理员可能已经添加了一些文件。 </p>
+<p> 事实上，<samp>ls</samp> 不会导致主目录中的所有文件被列出，而只会列出那些名称不以点（.）开头的文件。 以点（.）开头的文件称为隐藏文件，通常包含重要的程序配置信息。 它们是隐藏的，因为你不应该更改它们，除非你非常熟悉 UNIX！！！ </p>
+<p> 要列出主目录中的所有文件，包括名称以点开头的文件，请键入 </p>
+<p class="command">% ls -a</p>
+<p> <samp>ls</samp> 是命令可以使用选项的示例：<samp>-a</samp> 是选项的例子。 选项会改变命令的行为。
+有一些在线手册页可以告诉您特定命令可以采用哪些选项，以及每个选项如何改变命令的行为。 （参见本教程后面的内容）
+   </p>
+<h2>1.2 创建目录 </h2>
+  
+<h3> mkdir （make directory）</h3>
+<p> 现在，我们将在主目录中创建一个子目录，以保存您将在本教程中创建和使用的文件。 要在当前工作目录中创建一个名为 <samp>unixstuff</samp> 的子目录，请键入 </p>
+<p class="command">% mkdir unixstuff </p>
+<p> 要查看刚刚创建的目录，请键入 </p>
+<p class="command">% ls </p>
+<h2>1.3 切换到其他目录&nbsp;</h2>
+    
+<h3>cd （change directory）</h3>
+<p> 命令 <samp>cd <var>directory</var></samp> 意味着将当前工作目录切换到‘directory’。 当前工作目录可以被认为是您所在的目录，即您在文件系统树中的当前位置。 </p>
+<p> 要切换到刚刚创建的目录，请键入 </p>
+<p class="command">% cd unixstuff </p>
+<p> 输入 <code>ls</code> 以查看内容（应该为空） </p>
+<h3>练习 1a</h3>
+<p>在 <strong>unixstuff</strong> 目录中创建另一个名为 <strong>backups</strong> 的目录。 </p>
+<h2>1.4 目录 . 和 .. </h2>
+<p> 仍在 <strong>unixstuff</strong> 目录中，键入 </p>
+<p class="command"> % ls -a </p>
+<p> 如您所见，在 <strong>unixstuff</strong> 目录（以及所有其他目录中）中，有两个名为（<strong>.</strong>）和（<strong>..</strong>）的特殊目录。 </p>
+<p> 在UNIX中，（<strong>.</strong>）表示当前目录，因此键入 </p>
+<p class="command"> % cd . </p>
+<p class="hint">注意：cd 和 . 之间有一个空格。 </p>
+<p> 意味着留在原地（<strong>unixstuff</strong>目录）。 </p>
+<p> 这一开始可能看起来不太有用，但使用（<strong>.</strong>）作为当前目录的名称将节省大量的输入，我们将在本教程后面看到。 </p>
+<p>&nbsp;</p>
+<p>（<strong>..</strong>）表示当前目录的父级，因此键入 
+</p>
+<p class="command"> % cd .. </p>
+<p> 将带您到层次结构中上一层的一个目录（返回到您的主目录）。 现在就试试。 </p>
+<p> 注意：键入不带参数的 <samp>cd</samp> 总是会返回到您的主目录。 如果您在文件系统中迷失，这非常有用。 </p>
+<h2>1.5 路径名 </h2>
+<h3> pwd（print working directory） </h3>
+<p> 路径名可以让你搞清楚你在整个文件系统相关的位置。 例如，要找出主目录的绝对路径名，请键入 <code>cd</code> 以返回到主目录，然后键入 </p>
+<p class="command"> % pwd </p>
+<p> 完整路径名看起来像这样 -  </p>
+<p> <strong>/a/fservb/fservb/fservb22/eebeng99/ee91ab</strong></p>
+<p> 这意味着 ee91ab（您的主目录）位于目录 eebeng99（组目录）中，该目录位于 fservb 文件服务器上。 </p>
+<p> 注意： </p>
+<p> <strong>/a/fservb/fservb/fservb22/eebeng99/ee91ab</strong></p>
+<p> 可以缩短为 </p>
+<p> <strong>/user/eebeng99/ee91ab</strong></p>
+<h3>&nbsp;</h3>
+<h3> 练习 1b </h3>
+<p> 使用命令 <samp>ls</samp>, <samp>pwd</samp> 和 <samp>cd</samp> 来浏览文件系统。 </p>
+<p>（请记住，如果您迷路了，请自行键入 <samp>cd</samp> 以返回到您的主目录） </p>
+<h2>1.6 有关主目录和路径名的更多信息 </h2>
+<h3>了解路径名</h3>
+<p>首先输入 <samp>cd</samp> 以返回主目录，然后键入</p>
+<p class="command"> % ls unixstuff</p>
+<p>列出 unixstuff 目录的内容。</p>
+<p>&nbsp;</p>
+<p>现在键入 </p>
+<p class="command"> % ls backups</p>
+<p> 你会收到这样的消息 -  </p>
+<p class="stdout"> backups: No such file or directory </p>
+<p> 原因是，<strong>backups</strong> 不在您当前的工作目录中。 要对不在当前工作目录（您当前所在的目录）中的文件（或目录）上使用命令，您必须 <samp>cd</samp> 到正确的目录，或指定其完整路径名。 要列出 backups 目录的内容，必须键入 </p>
+<p class="command"> % ls unixstuff/backups </p>
+<p>&nbsp;</p>
+<h3>~ （你的主目录） </h3>
+<p>主目录也可以由波浪号 <strong>~</strong> 字符引用。 它可用于指定从主目录开始的路径。 因此键入 </p>
+<p class="command"> % ls ~/unixstuff</p>
+<p> 将列出 unixstuff 目录的内容，无论您当前在文件系统中的哪个位置。 </p>
+<p> 你认为会显示什么 </p>
+<p class="command"> % ls ~</p>
+<p> 将列出? </p>
+<p> 你认为会显示什么 </p>
+<p class="command"> % ls ~/.. </p>
+<p> 将列出? </p>
+<h2>总结 </h2>
+<table border="1" align="center" cellpadding="5" cellspacing="0">
+  <tr> 
+    <td><code>ls</code></td>
+    <td>显示文件和目录</td>
+  </tr>
+  <tr> 
+    <td><code>ls -a</code></td>
+    <td>显示所有的文件和目录</td>
+  </tr>
+  <tr> 
+    <td><code>mkdir</code></td>
+    <td>创建目录</td>
+  </tr>
+  <tr> 
+    <td><code>cd <i>directory</i></code></td>
+    <td>切换到指定的目录</td>
+  </tr>
+  <tr> 
+    <td><code>cd</code></td>
+    <td>切换到主目录</td>
+  </tr>
+  <tr> 
+    <td><code>cd ~</code></td>
+    <td>切换到主目录</td>
+  </tr>
+  <tr> 
+    <td><code>cd ..</code></td>
+    <td>切换到父目录</td>
+  </tr>
+  <tr> 
+    <td><code>pwd</code></td>
+    <td>显示当前目录的路径</td>
+  </tr>
+</table>
+
+<p class="navbar"><a href="unixintro.html"><img src="media/left.gif" alt="Previous" width="37" height="39" border="0" /></a> 
+  <a href="index.html"><img src="media/home.gif" alt="Home" width="81" height="39" border="0" /></a><a href="unix2.html"><img src="media/right.gif" alt="Next" width="37" height="39" border="0" /></a> 
+</p>
+
+
+<p class="date">M.Stonebank@surrey.ac.uk, &copy; 9th October 2000 </p>
+</body>
+</html>

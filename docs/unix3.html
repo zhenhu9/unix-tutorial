@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head> 
+<title> UNIX Tutorial Three </title> 
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="Copyright" content="Michael Stonebank, 1995" />
+<link href="unixtut1.css" rel="stylesheet" type="text/css" />
+</head> 
+ 
+<body>
+<h1>UNIX 教程第三节 </h1>
+
+<h2>3.1 重定向 &nbsp; </h2>
+<p>由 UNIX 命令启动的大多数进程，其输出都写入标准输出（即写入终端屏幕），并且许多进程从标准输入中获取输入（即从键盘读取输入）。 还存在标准错误，其中进程默认将其错误消息写入终端屏幕。 </p>
+<p> 我们已经看到 <samp>cat</samp> 命令的一个用途是将文件的内容写入屏幕。 </p>
+<p> 现在输入 <samp>cat</samp> 而不指定要读取的文件。 </p>
+
+<p class="command"> % cat</p>
+<p>然后在键盘上键入几个单词并按 <code>[Return]</code> 键。
+</p>
+<p> 最后按住 <code>[Ctrl]</code> 键并按 <code>[d]</code> （简写为^ D）结束输入。 </p>
+<p> 发生了什么？ </p>
+<p> 如果在没有指定要读取的文件的情况下运行 <samp>cat</samp> 命令，它将读取标准输入（键盘），并在接收到“文件结尾”（^ D）时，将其复制到标准输出（屏幕）。</p>
+<p> 在 UNIX 中，我们可以重定向命令的输入和输出。 </p>
+  <p> </p>
+<h2>3.2 重定向输出  &nbsp; </h2>
+<p> 我们使用 &gt; 符号来重定向命令的输出。 例如，要创建一个名为 <strong>list1</strong> 的文件，其中包含水果列表，请键入 
+  &nbsp; </p>
+<p class="command"> % cat &gt; list1</p>
+<p> 然后输入一些水果的名称。 在每个水果名称后按 <code>[Return]</code> 键。 </p>
+<p class="command"> pear<br />
+  banana<br />
+  apple<br />
+  ^D （Control D to stop）</p>
+<p> 实际发生的是 <samp>cat</samp> 命令读取标准输入（键盘）并且 &gt; 将输出（通常进入屏幕）重定向到名为 <strong>list1</strong> 的文件中。 </p>
+<p> 要读取文件的内容，请键入 </p>
+
+<p class="command"> % cat list1</p>
+
+<h3> 练习 3a</h3>
+
+<p> 使用上面的方法，创建另一个名为 <strong>list2</strong> 的文件，其中包含以下水果：橙子，李子，芒果，葡萄柚。 阅读 <strong>list2</strong> 的内容
+</p>
+
+<p> 此格式 &gt;&gt; 将标准输出附加到文件。 因此，要向文件 <strong>list1</strong> 添加更多项目，请键入 </p>
+<p class="command"> % cat &gt;&gt; list1</p>
+<p> 然后输入更多水果的名称 </p>
+
+<p class="command"> peach<br />
+  grape<br />
+  orange<br />
+  ^D (Control D to stop)</p>
+<p> 要读取文件的内容，请键入 </p>
+
+<p class="command"> % cat list1</p>
+
+<p> 你现在应该有两个文件。 一个包含六个水果，另一个包含四个水果。 我们现在将使用 <samp>cat</samp> 命令将 <strong>list1</strong> 和 <strong>list2</strong> 连接（concatenate）到一个名为 <strong>biglist</strong> 的新文件中。 输入 </p>
+
+<p class="command"> % cat list1 list2 &gt; biglist</p>
+<p> 这样做是为了依次读取 <strong>list1</strong> 和 <strong>list2</strong> 的内容，然后将文本输出到文件 <strong>biglist</strong>。</p>
+<p> 要读取新文件的内容，请键入 </p>
+<p class="command"> % cat biglist</p>
+
+
+<h2>3.3 重定向输入 &nbsp; </h2>
+<p>我们使用 &lt; 符号来重定向命令的输入。</p>
+<p> <samp>sort</samp> 命令按字母或数字顺序排序列表。 
+  键入 </p>
+
+<p class="command"> % sort </p>
+<p> 然后输入一些蔬菜的名称。 每个蔬菜后按 <code>[Return]</code>。</p>
+
+<p class="command"> carrot<br />
+  beetroot<br />
+  artichoke<br />
+  ^D (control d to stop)<br />
+</p>
+<p> 输出将是 </p>
+
+<p class="stdout"> artichoke<br />
+  beetroot <br />
+  carrot </p>
+<p> 使用 &lt; 您可以将输入重定向来自文件而不是键盘。 例如，要对水果列表进行排序，请键入 </p>
+
+<p class="command"> % sort &lt; biglist </p>
+<p> 并将排序后的列表输出到屏幕。 </p>
+<p> 要将排序列表输出到文件，请键入， </p>
+
+<p class="command"> % sort &lt; biglist &gt; slist </p>
+<p> 使用 <samp>cat</samp> 来读取文件 <strong>slist</strong> 的内容。
+</p>
+
+
+<h2>3.4 管道</h2>
+<p> 要查看系统中的人员，请键入 </p>
+
+<p class="command"> % who </p>
+<p> 获取已排序的名称列表的一种方法是键入， </p>
+
+<p class="command"> % who &gt; names.txt<br />
+  % sort &lt; names.txt </p>
+<p>这有点慢，您必须记住在完成后删除名为 names 的临时文件。 您真正想要做的是，将 <samp>who</samp> 命令的输出直接连接到 <samp>sort</samp> 命令的输入。 这正是管道所做的。 管道的符号是垂直条 |。 </p>
+<p> 例如，键入 </p>
+
+<p class="command"> % who | sort </p>
+<p> 将给出与上述相同的结果，但更快更清晰。 </p>
+<p> 要查看有多少用户登录，请键入 </p>
+
+<p class="command"> % who | wc -l <br />
+</p>
+<h3>练习 3b</h3>
+<p><samp>a2ps -Phockney <var>textfile</var></samp> 是将 postscript 文件打印到打印机 hockney 的命令。 </p>
+<p> 使用管道，打印包含字母 'p' 的 <strong>list1</strong> 和 <strong>list2</strong> 的所有行，对结果进行排序，然后打印到打印机hockney。</p>
+
+<p><a href="pipeanswer.html">这里有答案</a></p>
+  <p> </p>
+<p> </p>
+<p> </p>
+<h2> 小结 </h2>
+<table border="1" align="center" cellpadding="3" cellspacing="0">
+  <tr> 
+    <td><code><var>command</var> &gt; <var>file</var></code></td>
+    <td>重定向标准输出到文件</td>
+  </tr>
+  <tr> 
+    <td><code><var>command</var> &gt;&gt; <var>file</var></code></td>
+    <td>将标准输出附加到文件</td>
+  </tr>
+  <tr> 
+    <td><code><var>command</var> &lt; <var>file</var></code></td>
+    <td>重定向文件到标准输入</td>
+  </tr>
+  <tr> 
+    <td><code><var>command1</var> | <var>command2</var></code></td>
+    <td>将command1的输出传递给command2的输入</td>
+  </tr>
+  <tr> 
+    <td><code>cat <var>file1 file2</var> &gt; <var>file0</var></code></td>
+    <td>将file1和file2连接到file0</td>
+  </tr>
+  <tr> 
+    <td><code>sort</code></td>
+    <td>排序数据</td>
+  </tr>
+  <tr> 
+    <td><code>who</code></td>
+    <td>列出当前登录的用户</td>
+  </tr>
+  <tr> 
+    <td><code>a2ps -P<var>printer textfile</var></code></td>
+    <td>将文本文件打印到命名打印机</td>
+  </tr>
+  <tr> 
+    <td><code>lpr -P<var>printer psfile</var></code></td>
+    <td>将postscript文件打印到命名打印机</td>
+  </tr>
+</table>
+  
+
+<p class="navbar"><a href="unix2.html"><img src="media/left.gif" alt="Previous" width="37" height="39" border="0" /></a> 
+  <a href="index.html"><img src="media/home.gif" alt="Home" width="81" height="39" border="0" /></a><a href="unix4.html"><img src="media/right.gif" alt="Next" width="37" height="39" border="0" /></a> 
+</p>
+
+<p class="date"> M.Stonebank@surrey.ac.uk, &copy; 9th October 2000 </p>
+
+</body>
+</html>

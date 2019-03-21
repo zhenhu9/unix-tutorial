@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title> UNIX Tutorial Two </title>
+<link href="unixtut1.css" rel="stylesheet" type="text/css" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="Copyright" content="Michael Stonebank, 1995" />
+</head>
+<body>
+<h1>UNIX 教程二 </h1>
+<h2>2.1 拷贝文件</h2>
+<h3>cp （copy）</h3>
+<p> <samp>cp <var>file1 file2</var></samp> 是在当前工作目录中生成 <strong>file1</strong> 副本并将其称为 <strong>file2</strong> 的命令。
+</p>
+<p> 我们现在要做的是，获取存储在文件系统中的开放访问区域中的文件，并使用 <samp>cp</samp> 命令将其复制到 unixstuff 目录中。 </p>
+<p> 首先， <samp>cd</samp> 进入您的 unixstuff 目录。</p>
+<p class="command"> % cd ~/unixstuff</p>
+<p> 然后在 UNIX 提示符下键入， </p>
+<p class="command"> % cp /vol/examples/tutorial/science.txt . </p>
+<p> （注意：不要忘记最后的点（ <samp>.</samp> ）。请记住，在UNIX中，点表示当前目录。）</p>
+<p> 上面的命令表示将文件 <strong>science.txt</strong> 复制到当前目录，保持相同的文件名。 </p>
+<p> （注意：目录 <strong>/vol/examples/tutorial/</strong> 是部门中每个人都可以读取和复制访问权限的区域。如果您来自大学以外的地方，可以在此处获取该文件的<a href="science.txt">副本</a>。
+   使用“文件/保存为..”从菜单栏将其保存到 <strong>unixstuff</strong> 目录中。）</p>
+<p>&nbsp;</p>
+<h3>练习 2a</h3>
+<p>将 <strong>science.txt</strong> 文件复制到文件名为 <strong>science.bak</strong> 以创建其备份。 </p>
+<h2>2.2 移动文件</h2>
+<h3>mv （move）</h3>
+<p><samp>mv <var>file1 file2</var></samp> 将 <strong>file1</strong> 
+  移动（或重命名）为 <strong>file2</strong> </p>
+<p> 要将文件从一个位置移动到另一个位置，请使用 <samp>mv</samp> 命令。 这具有移动而不是复制文件的效果，因此最终只有一个文件而不是两个文件。 </p>
+<p> 它还可以用于重命名文件，方法是将文件移动到同一目录，但为其指定不同的名称。 </p>
+<p> 我们现在将文件 science.bak 移动到您的备份目录。 </p>
+<p> 首先，将目录切换到 unixstuff 目录（你还能记得吗？）。 然后，到 <strong>unixstuff</strong> 目录后，键入</p>
+<p class="command"> % mv science.bak backups/.</p>
+<p> 键入 <code>ls</code> 和 <code>ls backups</code> 以查看它是否有效。
+</p>
+<h2>2.3 移除文件和目录 </h2>
+<h3>rm （remove）, rmdir （remove directory）</h3>
+<p> 要删除（移除）文件，请使用 <samp>rm</samp> 命令。 作为示例，我们将创建 <strong>science.txt</strong>  文件的副本，然后将其删除。
+</p>
+<p> 在 <strong>unixstuff</strong> 目录中，键入</p>
+<p class="command"> % cp science.txt tempfile.txt<br />
+  % ls （检查它是否已创建该文件）<br />
+  % rm tempfile.txt <br />
+  % ls （检查它是否删除了文件）</p>
+<p> 您可以使用 <samp>rmdir</samp> 命令删除目录（首先确保它为空）。 尝试删除 <strong>backups</strong> 目录。 您将无法删除目录，因为UNIX不允许您删除非空目录。</p>
+<p>&nbsp;</p>
+<h3>练习 2b</h3>
+<p> 使用 <samp>mkdir</samp> 创建名为 <strong>tempstuffmkdir</strong> 的目录，然后使用 <samp>rmdir</samp> 命令将其删除。</p>
+<h2>2.4 在屏幕上显示文件的内容 </h2>
+<h3>clear （clear screen）</h3>
+<p> 在开始下一部分之前，您可能希望清除终端窗口中先前的命令，以便可以清楚地理解随后命令的输出。 </p>
+<p> 在提示符后键入 </p>
+<p class="command"> % clear </p>
+<p> 这将清除所有文本，并在窗口顶部显示 % 提示符。 </p>
+<p>&nbsp;</p>
+<h3>cat （concatenate）</h3>
+<p> 命令 <samp>cat</samp> 可用于在屏幕上显示文件的内容。 键入： </p>
+<p class="command"> % cat science.txt </p>
+<p> 正如您所看到的，该文件的长度超过了窗口的大小，因此它会滚动过去使其无法读取。 </p>
+<p>&nbsp;</p>
+<h3>less</h3>
+<p> 命令 <samp>less</samp> 一次性将文件的内容写入屏幕。键入： </p>
+<p class="command"> % less science.txt </p>
+<p> 如果要查看其它页面，请按 <code>[空格键]</code>，如果要退出察看，请键入 <code>[q]</code>。 正如您所看到的，<samp>less</samp> 更偏向于 <samp>cat</samp> 长文件。 </p>
+<p>&nbsp;</p>
+<h3>head</h3>
+<p> <samp>head</samp> 命令将文件的前十行写入屏幕。
+</p>
+<p> 首先清除屏幕，然后键入 </p>
+<p class="command"> % head science.txt </p>
+<p> 然后键入 </p>
+<p class="command"> % head -5 science.txt </p>
+<p> -5 对 head 命令有什么不同？ </p>
+<p>&nbsp;</p>
+<h3>tail</h3>
+<p> <samp>tail</samp> 命令将文件的最后十行写入屏幕。 
+</p>
+<p> 清除屏幕，然后键入 </p>
+<p class="command"> % tail science.txt </p>
+<p> 如何查看文件的最后 15 行？ </p>
+<p>&nbsp;</p>
+<h2>2.5 查询文件的内容 </h2>
+<h3>使用 less 来简单搜索</h3>
+<p> 在使用 <samp>less</samp> 的时候，您可以在文本文件中搜索关键字（模式）。 例如，要在 <strong>science.text</strong> 中搜索“science”一词，请键入 </p>
+<p class="command"> % less science.txt </p>
+<p> 然后，仍然在 <samp>less</samp> 中，（不要输入 [q] 退出），输入一个正斜杠 <code>[/]</code> 紧随要搜索的单词。</p>
+<p class="command"> /science</p>
+<p> 如您所见，<samp>less</samp> 查找并突出显示关键字。 输入 <code>[n]</code> 以搜索该单词的下一个匹配项。</p>
+<p>&nbsp;</p>
+<h3>grep （不要问为什么叫 grep）</h3>
+<p><samp>grep</samp> 是许多标准 UNIX 实用程序之一。 它搜索文件以查找指定的单词或模式。 首先清除屏幕，然后键入 </p>
+<p class="command"> % grep science science.txt </p>
+<p> 如您所见，<samp>grep</samp> 打印出包含单词 science 的每一行。 </p>
+<p> 或已经打印出来了吗？？？？ </p>
+<p> 尝试键入 </p>
+<p class="command"> % grep Science science.txt </p>
+<p> <samp>grep</samp> 命令区分大小写；它能区别 Science 和 science. </p>
+<p> 要忽略大小写区别，请使用 -i 选项，即键入 </p>
+<p class="command"> % grep -i science science.txt </p>
+<p> 要搜索短语或模式，必须用单引号（省略符号）将其括起来。 例如，要搜索 spinning top，请键入 </p>
+<p class="command"> % grep -i 'spinning top' science.txt </p>
+<p> grep 的一些其它选项是： </p>
+<p> -v 显示那些不匹配的行 <br />
+  -n 在每个加工线前面加上行号 <br />
+  -c 仅打印匹配行的总数 <br />
+</p>
+<p> 尝试其中一些，看看不同的结果。 不要忘记，您可以一次使用多个选项，例如，没有 science 或 Science 单词的行数。</p>
+<p class="command"> % grep -ivc science science.txt </p>
+<p>&nbsp;</p>
+<h3>wc （word count）</h3>
+<p>一个方便的小实用程序是 <samp>wc</samp> 命令，是字数统计的缩写。 要对 <strong>science.txt</strong> 进行单词计数，请键入 </p>
+<p class="command"> % wc -w science.txt </p>
+<p> 要找出文件有多少行，请键入 </p>
+<p class="command"> % wc -l science.txt </p>
+<h2> 小结 </h2>
+<table border="1" align="center" cellpadding="3" cellspacing="0">
+  <tr> 
+    <td><code>cp <var>file1 file2</var></code></td>
+    <td>拷贝 file1 为 file2</td>
+  </tr>
+  <tr> 
+    <td><code>mv <var>file1 file2</var></code></td>
+    <td>将 file1 移动或重命名为 file2</td>
+  </tr>
+  <tr> 
+    <td><code>rm <var>file</var></code></td>
+    <td>移除文件</td>
+  </tr>
+  <tr> 
+    <td><code>rmdir <var>directory</var></code></td>
+    <td>移除目录</td>
+  </tr>
+  <tr> 
+    <td><code>cat <var>file</var></code></td>
+    <td>显示一个文件的内容</td>
+  </tr>
+  <tr> 
+    <td><code>more <var>file</var></code></td>
+    <td>一次显示文件的一页内容</td>
+  </tr>
+  <tr> 
+    <td><code>head <var>file</var></code></td>
+    <td>显示文件内容的前几行</td>
+  </tr>
+  <tr> 
+    <td><code>tail <var>file</var></code></td>
+    <td>显示文件内容的后几行</td>
+  </tr>
+  <tr> 
+    <td><code>grep <var>'keyword' file</var></code></td>
+    <td>在文件中搜索关键字</td>
+  </tr>
+  <tr> 
+    <td><code>wc <var>file</var></code></td>
+    <td>计算文件中的行数/单词数/字符数</td>
+  </tr>
+</table>
+<p>&nbsp;</p>
+<p class="navbar"><a href="unix1.html"><img src="media/left.gif" alt="Previous" width="37" height="39" border="0" /></a> 
+  <a href="index.html"><img src="media/home.gif" alt="Home" width="81" height="39" border="0" /></a><a href="unix3.html"><img src="media/right.gif" alt="Next" width="37" height="39" border="0" /></a> 
+</p>
+<p class="date">M.Stonebank@surrey.ac.uk, &copy; 9th October 2000 </p>
+</body>
+</html>

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title> UNIX Tutorial Four </title>
+<link href="unixtut1.css" rel="stylesheet" type="text/css" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="Copyright" content="Michael Stonebank, 1995" />
+</head>
+<body>
+<h1>UNIX 教程第四节 </h1>
+<h2>4.1 通配符</h2>
+<h3>字符 * 和 ?</h3>
+<p> 字符 * 称为通配符，将与文件（或目录）名称中零个或多个字符匹配。 例如，在 <strong>unixstuff</strong> 目录中，输入 </p>
+<p class="command"> % ls list*</p>
+<p> 这将列出当前目录中以 <strong>list....</strong> 开头的所有文件。
+</p>
+<p> 尝试输入 </p>
+<p class="command"> % ls *list</p>
+<p> 这将列出以 <strong>....list</strong> 结尾的当前目录中的所有文件。</p>
+<p> 字符 ？ 将恰好匹配一个字符。<br />
+  所以<samp> ls ?ouse </samp> 会匹配像 <strong>house</strong> 和 <strong>mouse</strong>这样的文件，但不会抱怨。 <br />
+  尝试输入 </p>
+<p class="command"> % ls ?list</p>
+<h2>4.2 文件名约定  </h2>
+<p> 我们在此应该注意，目录只是一种特殊类型的文件。 因此，命名文件的规则和约定也适用于目录。 </p>
+<p> 在命名文件中，应避免使用 <strong>/ * &amp; %</strong> 这样具有特殊含义的字符， 另外，避免在名称中使用空格。 命名文件最安全的方法是仅使用字母数字字符，即字母和数字，以及 _（下划线）和 . （点）。</p>
+<p> 文件名通常以小写字母开头，并且可以以点后跟一组表明文件内容的字母结尾。 例如，所有由 C 代码组成的文件都可以用 .c 结尾命名，例如 prog1.c。 然后，为了列出主目录中包含 C 代码的所有文件，只需在该目录中键入 <samp>ls *.c</samp> 。 </p>
+<p class="hint"> <strong>注意</strong>：某些应用程序生成的所有输出文件使用相同的名称。 <br />
+  <br />
+  例如，除非给出适当的选项，否则某些编译器会生成名为 <strong>a.out</strong> 的编译文件。 如果您忘记使用该选项，建议您立即重命名已编译的文件，否则下一个此类文件将覆盖它，而丢失源文件。 </p>
+<h2>4.3 获取帮助</h2>
+<h3>在线手册</h3>
+<p> 有在线手册，提供有关大多数命令的信息。 手册页告诉您哪个特定命令可以采用哪些选项，以及每个选项如何修改命令的行为。 键入man命令以读取特定命令的手册页。 </p>
+<p> 例如，要查找有关 <samp>wc</samp> （word count）命令的更多信息，请输入 </p>
+<p class="command"> % man wc </p>
+<p> 另外 </p>
+<p class="command"> % whatis wc </p>
+<p> 给出了命令的单行描述，但省略了有关选项等的任何信息。 </p>
+<h3>关于</h3>
+<p> 当您不确定命令的确切名称时， </p>
+<p class="command"> % apropos keyword </p>
+<p> 将为您提供在手册页头中带 关键字 的命令。 例如，尝试输入 </p>
+<p class="command"> % apropos copy </p>
+<h2>小结 </h2>
+<table border="1" align="center" cellpadding="3" cellspacing="0">
+  <tr> 
+    <td><code>*</code></td>
+    <td>匹配任意数量的字符</td>
+  </tr>
+  <tr> 
+    <td><code>?</code></td>
+    <td>匹配单个字符</td>
+  </tr>
+  <tr> 
+    <td><code>man <var>command</var></code></td>
+    <td>阅读命令的在线手册页</td>
+  </tr>
+  <tr> 
+    <td><code>whatis <var>command</var></code></td>
+    <td>命令的简要说明</td>
+  </tr>
+  <tr> 
+    <td><code>apropos <var>keyword </var> </code></td>
+    <td>在手册页中匹配带有关键字的命令</td>
+  </tr>
+</table>
+<p>&nbsp;</p>
+<p class="navbar"><a href="unix3.html"><img src="media/left.gif" alt="Previous" width="37" height="39" border="0" /></a> 
+  <a href="index.html"><img src="media/home.gif" alt="Home" width="81" height="39" border="0" /></a><a href="unix5.html"><img src="media/right.gif" alt="Next" width="37" height="39" border="0" /></a> 
+</p>
+
+
+
+<p class="date"> M.Stonebank@surrey.ac.uk, &copy; 9th October 2000 </p>
+
+</body>
+</html>

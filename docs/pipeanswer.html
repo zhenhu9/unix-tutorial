@@ -1,0 +1,27 @@
+<html>
+<head>
+<title> UNIX Tutorial Three </title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="Copyright" content="Michael Stonebank, 1995" />
+<link href="unixtut1.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+
+  
+<h1>答案 3.4 </h1>
+
+  <h2>3.4 使用管道 </h2>
+
+    
+<h3>练习 3b</h3>
+<p><samp>a2ps -Phockney <var>textfile</var></samp> 是将 postscript 文件打印到打印机 hockney 的命令。 </p>
+<p> 使用管道，打印包含字母 'p' 的 <strong>list1</strong> 和 <strong>list2</strong> 的所有行，对结果进行排序，然后打印到打印机hockney。</p>
+<p>&nbsp;</p>
+<h3>答案</h3>
+<p class="command">% cat list1 list2 | grep p | sort | a2ps -Phockney</p>
+<p>&nbsp;</p>
+<p class="date">M.Stonebank@ee.surrey.ac.uk, &copy; November, 2002</p>
+
+</body>
+</html>
